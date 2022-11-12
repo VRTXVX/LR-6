@@ -5,7 +5,7 @@ import command.Command;
 import smarthome.SmartHome;
 import saving.Saving;
 
-public class MainMenu extends MenuUtils {
+public class MainMenu extends MenuService {
 
     public MainMenu(){
         this.menuLoop();
@@ -20,5 +20,6 @@ public class MainMenu extends MenuUtils {
         return new Command[]{ new ChooseSmartHomeCommand(), new AddSmartHomeCommand(), new DeleteSmartHomeCommand(), };
 
     }
+    protected boolean isExit() { return true; }
     protected String getMenuName(){ return "Main menu"; }
 }

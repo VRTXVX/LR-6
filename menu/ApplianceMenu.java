@@ -5,7 +5,7 @@ import smarthome.SmartHome;
 import command.appliancecommand.*;
 import static saving.Saving.loadSaving;
 
-public class ApplianceMenu extends MenuUtils {
+public class ApplianceMenu extends MenuService {
     public ApplianceMenu(){
         menuLoop();
     }
@@ -20,6 +20,7 @@ public class ApplianceMenu extends MenuUtils {
 
     }
 
+    protected boolean isExit() { return false; }
     protected String getMenuName(){ return "Appliance menu"; }
 
 }

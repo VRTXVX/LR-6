@@ -4,7 +4,7 @@ import command.Command;
 import command.appliancecommand.displaycommand.*;
 import static service.Service.getCurSmartHome;
 
-public class DisplayListMenu extends MenuUtils {
+public class DisplayListMenu extends MenuService {
     public DisplayListMenu(){
         menuLoop();
     }
@@ -15,6 +15,6 @@ public class DisplayListMenu extends MenuUtils {
         return new Command[]{new PrintApplianceCommand(), new SortApplianceByParameter(), new FindApplianceByParameterCommand()};
     }
 
-
+    protected boolean isExit() { return false; }
     protected String getMenuName(){ return "Display list menu"; }
 }
