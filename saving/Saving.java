@@ -12,7 +12,6 @@ public class Saving {
     public static SmartHome[] loadSaving() {
 
         if (!pathToSavingFolder.toFile().exists())  return null; // check if directory not exist return null
-           
 
         File[] files = pathToSavingFolder.toFile().listFiles(); // get all files in directory
 

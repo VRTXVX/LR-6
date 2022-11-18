@@ -2,12 +2,12 @@ package command.appliancecommand.displaycommand;
 
 import command.Command;
 import static service.Service.getCurSmartHome;
-import static smarthome.functions.FindAppliance.findAppliance;
+import static smarthome.functions.FindAppliance.choiceFinding;
 
 public class FindApplianceByParameterCommand implements Command {
     @Override
     public void execute() {
-        findAppliance(getCurSmartHome().getAppliances());
+        choiceFinding(getCurSmartHome().getAppliances());
     }
 
     @Override

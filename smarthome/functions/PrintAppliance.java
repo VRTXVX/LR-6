@@ -37,7 +37,7 @@ public class PrintAppliance {
     }
     private static String getRowTable(int number, Appliance appliance){
         return String.format("""
-                ║ %3d ║%13s ║%13s ║%11s ║    %s   ║ %15s ║ %11s ║ %11s ║
+                ║ %3d ║%13s ║%13s ║%11s ║    %s   ║ %15.5f ║ %11.2f ║ %11s ║
                 """, number, appliance.getName(), appliance.getMark(), appliance.getModel(),
                 appliance.getStatus() ? colorize("On ","GREEN"): colorize("Off","RED"),
                 appliance.getConsumedEnergy(), appliance.getWattHour(), appliance.getPowerConsumptionClass());

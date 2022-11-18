@@ -1,9 +1,9 @@
 package smarthome;
 
+import static service.Service.getIntValue;
 import static color.Color.colorize;
 import static saving.Saving.*;// load smart houses and save
 import static service.Service.getLine;
-import static service.Service.getIntChoice;
 
 public class SmartHomeUtils {
     public static void addSmartHome() {
@@ -11,7 +11,7 @@ public class SmartHomeUtils {
         SmartHome[] smartHouses = loadSaving();
         String name;
 
-        name = getLine("Enter the name of the SmartHome(0 - Cancel) >>> ");
+        name = getLine("Enter the name of the SmartHome(0 - Cancel)");
 
         if (name.equals("0")) return;
 
@@ -41,7 +41,7 @@ public class SmartHomeUtils {
         }
         System.out.println("[0] - Back");
 
-        int choice = getIntChoice(smartHouses.length, "Enter the number of the SmartHome >>> ");
+        int choice = getIntValue(smartHouses.length, "Enter the number of the SmartHome");
         if (choice == 0) return null;
 
         return smartHouses[choice - 1]; // return chosen SmartHome

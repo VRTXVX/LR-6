@@ -14,15 +14,15 @@ public class AddAppliance {
 
         System.out.println("\n\tEnter information about appliance:\n");
 
-        newAppliance.setName(getLine("Enter name >>> "));
+        newAppliance.setName(getLine("Name"));
 
-        newAppliance.setMark(getLine("Enter mark >>> "));
+        newAppliance.setMark(getLine("Mark"));
 
-        newAppliance.setModel(getLine("Enter model >>> "));
+        newAppliance.setModel(getLine("Model"));
 
-        newAppliance.setWattHour(getDoubleValue("Enter watt-hour >>> "));
+        newAppliance.setWattHour(getDoubleValue("Watt-hour"));
 
-        newAppliance.setPowerConsumptionClass(getLine("Enter power consumption class >>> "));
+        newAppliance.setPowerConsumptionClass(getLine("Power consumption class"));
 
         Appliance[] newAppliances = new Appliance[curAppliances.length + 1]; // create new array with one more element
 

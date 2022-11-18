@@ -7,24 +7,21 @@ import java.util.Scanner;
 
 public class Service {
     private static SmartHome curSmartHome;
-
     public final static Scanner sc = new Scanner(System.in);
 
-    public static int getIntChoice(int maxValue, String message) {
+    public static int getIntValue( int maxValue, String message) {
         int choice;
+
         do {
             try {
-                System.out.print(message);
+                System.out.print(message + " >>> ");
 
                 choice = sc.nextInt();
 
-                if (choice < 0 || choice > maxValue) {
-                    System.out.println("Value out of range");
-                    continue;
-                }
+                if(choice >= 0 && choice <= maxValue) return choice;
 
-                return choice;
-
+                System.out.println("Value out of range");
+                
             } catch (Exception e) {
                 sc.nextLine(); // clear buffer
                 System.out.println(colorize("\n[ERROR] ", "RED") + "Invalid input");
@@ -32,46 +29,40 @@ public class Service {
         } while (true);
     }
 
-    public static int getIntChoice(String message) {
-        return getIntChoice(Integer.MAX_VALUE, message);
-    }
-
-
-    public static double getDoubleValue(String message) {
+    public static double getDoubleValue(double maxValue,String message) {
         double choice;
         do {
             try {
-                System.out.print(message);
+                System.out.print(message + " >>> ");
 
                 choice = sc.nextDouble();
 
-                if(choice <= 0) {
-                    System.out.println("Value out of range");
-                    continue;
-                }
+                if(choice >= 0 && choice <= maxValue) return choice;
 
-                return choice;
+                System.out.println("Value out of range");
 
             } catch (Exception e) {
                 sc.nextLine(); // clear buffer
                 System.out.println(colorize("\n[ERROR] ", "RED") + "Invalid input");
             }
         } while (true);
+    }
+
+    public static double getDoubleValue(String message){
+        return getDoubleValue(Double.MAX_VALUE,message);
     }
 
     public static String getLine(String message) {
         String line;
         do {
             try {
-                System.out.print(message);
+                System.out.print(message + " >>> ");
+
                 line = sc.next();
 
-                if (line.equals("")) {
-                    System.out.println(colorize("\n[ERROR] ", "RED") + "String is empty");
-                    continue;
-                }
+                if (line.length() > 0) return line;
 
-                return line;
+                System.out.println(colorize("\n[ERROR] ", "RED") + "String is empty");
 
             } catch (Exception e) {
                 sc.nextLine(); // clear buffer
@@ -79,10 +70,8 @@ public class Service {
             }
         } while (true);
     }
-
-
+    
     public static SmartHome getCurSmartHome() { return curSmartHome; }
     public static void setCurSmartHome (SmartHome curSmartHome) { Service.curSmartHome = curSmartHome; }
-
-
+    
 }

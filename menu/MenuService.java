@@ -1,7 +1,7 @@
 package menu;
 
 import command.Command;
-import static service.Service.getIntChoice;
+import static service.Service.getIntValue;
 import static color.Color.colorize;
 
 public abstract class MenuService {
@@ -17,7 +17,7 @@ public abstract class MenuService {
 
             showMenu(curCommands);
 
-            choice = getIntChoice(curCommands.length,"Enter your choice >>> ");
+            choice = getIntValue(curCommands.length,"Enter your choice");
 
             if(choice == 0) return;
 

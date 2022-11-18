@@ -1,146 +1,79 @@
 package smarthome.functions;
 
 import appliance.Appliance;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 import static color.Color.colorize;
-import static service.Service.getIntChoice;
-import static service.Service.getLine;
+import static service.Service.*;
 
 public class FindAppliance {
-    public static void findAppliance(Appliance[] appliances) {
+    public static void choiceFinding(Appliance[] appliances) {
 
-        int choice;
-
-        String message = """
-                [1] - Find by name
-                [2] - Find by mark
-                [3] - Find by model
-                [4] - Find by diapason of watt hour
-                [5] - Find by diapason of consumed energy
-                [6] - Find by diapason of power consumption class
+        String message = String.format("""
+                    %s
+                [1] - By name
+                [2] - By mark
+                [3] - By model
+                [4] - By diapason of watt-hour
+                [5] - By diapason of consumed energy
+                [6] - By power consumption class
                 [0] - Cancel
-                Choose the option you want to choose >>>\040""";
+                Choose the option you want to choose""",colorize("Finding","CYAN"));
 
-        do{
-            choice = getIntChoice(6,message);
-
-            switch (choice) {
-                case 1 -> findByName(appliances);
-                case 2 -> findByMark(appliances);
-                case 3 -> findByModel(appliances);
-                case 4 -> findByWattHour(appliances);
-                case 5 -> findByConsumedEnergy(appliances);
-                case 6 -> findByPowerConsumptionClass(appliances);
+        do {
+            switch (getIntValue(6,message)) {
+                case 1 -> {
+                    String name = getLine("Name");
+                    findAndPrint(appliances, x -> x.getName().equals(name));
+                }
+                case 2 -> {
+                    String mark = getLine("Mark");
+                    findAndPrint(appliances, x -> x.getMark().equals(mark));
+                }
+                case 3 -> {
+                    String model = getLine("Model");
+                    findAndPrint(appliances, x -> x.getModel().equals(model));
+                }
+                case 4 -> {
+                    double min = getDoubleValue("Min watt-hour");
+                    double max = getDoubleValue("Max watt-hour");
+                    findAndPrint(appliances, x -> x.getWattHour() >= min && x.getWattHour() <= max);
+                }
+                case 5 -> {
+                    double min = getDoubleValue("Min consumed energy");
+                    double max = getDoubleValue("Max consumed energy");
+                    findAndPrint(appliances, x -> x.getConsumedEnergy() >= min && x.getConsumedEnergy() <= max);
+                }
+                case 6 -> {
+                    String powerConsumptionClass = getLine("Power consumption class");
+                    findAndPrint(appliances, x -> x.getPowerConsumptionClass().equals(powerConsumptionClass));
+                }
                 case 0 -> {
                     System.out.println(colorize("\nOperation canceled", "YELLOW"));
                     return;
                 }
             }
-
-        }while (true);
-
+        } while (true);
     }
 
-    private static void findByName(Appliance[] appliances){
-        String name = getLine("Enter name >>> ");
+    private static void findAndPrint(Appliance[] appliances, Predicate<Appliance> predicate) {
 
+        List<Appliance> applianceList = new ArrayList<>();
         boolean found = false;
 
-        for (int i = 0,j = 1; i < appliances.length; i++) {
-            if (appliances[i].getName().equals(name)) {
-                System.out.println("[" + j + "] - " + appliances[i]);
+        for (Appliance appliance : appliances) {
+            if (predicate.test(appliance)) {
+                applianceList.add(appliance);
                 found = true;
             }
         }
 
         if (!found) {
             System.out.println(colorize("[INFO]", "YELLOW") + " Appliance not found");
-        }
-    }
-
-    private static void findByMark(Appliance[] appliances){
-        String mark = getLine("Enter mark >>> ");
-
-        boolean found = false;
-
-        for (int i = 0,j = 1; i < appliances.length; i++) {
-            if (appliances[i].getMark().equals(mark)) {
-                System.out.println("[" + j + "] - " + appliances[i]);
-                found = true;
-            }
+            return;
         }
 
-        if (!found) {
-            System.out.println(colorize("[INFO]", "YELLOW") + " Appliance not found");
-        }
-    }
-
-    private static void findByModel(Appliance[] appliances){
-        String model = getLine("Enter model >>> ");
-
-        boolean found = false;
-
-        for (int i = 0,j = 1; i < appliances.length; i++) {
-            if (appliances[i].getModel().equals(model)) {
-                System.out.println("[" + j + "] - " + appliances[i]);
-                found = true;
-            }
-        }
-
-        if (!found) {
-            System.out.println(colorize("[INFO]", "YELLOW") + " Appliance not found");
-        }
-    }
-
-    private static void findByWattHour(Appliance[] appliances){
-        int min = getIntChoice("Enter min watt hour >>> ");
-        int max = getIntChoice("Enter max watt hour >>> ");
-
-        boolean found = false;
-
-        for (int i = 0,j = 1; i < appliances.length; i++) {
-            if (appliances[i].getWattHour() >= min && appliances[i].getWattHour() <= max) {
-                System.out.println("[" + j + "] - " + appliances[i]);
-                found = true;
-            }
-        }
-
-        if (!found) {
-            System.out.println(colorize("[INFO]", "YELLOW") + " Appliance not found");
-        }
-    }
-
-    private static void findByConsumedEnergy(Appliance[] appliances){
-        int min = getIntChoice("Enter min consumed energy >>> ");
-        int max = getIntChoice("Enter max consumed energy >>> ");
-
-        boolean found = false;
-
-        for (int i = 0,j = 1; i < appliances.length; i++) {
-            if (appliances[i].getConsumedEnergy() >= min && appliances[i].getConsumedEnergy() <= max) {
-                System.out.println("[" + j + "] - " + appliances[i]);
-                found = true;
-            }
-        }
-
-        if (!found) {
-            System.out.println(colorize("[INFO]", "YELLOW") + " Appliance not found");
-        }
-    }
-
-    private static void findByPowerConsumptionClass(Appliance[] appliances){
-        String consumptionClass = getLine("Enter power consumption class >>> ");
-
-        boolean found = false;
-
-        for (int i = 0,j = 1; i < appliances.length; i++) {
-            if (appliances[i].getPowerConsumptionClass().equals(consumptionClass)) {
-                System.out.println("[" + j + "] - " + appliances[i]);
-                found = true;
-            }
-        }
-
-        if (!found) {
-            System.out.println(colorize("[INFO]", "YELLOW") + " Appliance not found");
-        }
+        PrintAppliance.printAppliance(applianceList.toArray(new Appliance[0]));
     }
 }

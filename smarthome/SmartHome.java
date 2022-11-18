@@ -26,7 +26,6 @@ public class SmartHome implements Serializable {
     public double getTotalConsumedEnergy() {
         double totalConsumedEnergy = 0;
 
-
         for (Appliance appliance : getAppliances()) {
             totalConsumedEnergy += appliance.getConsumedEnergy();
         }

@@ -2,16 +2,16 @@ package smarthome.functions;
 
 import appliance.Appliance;
 import static color.Color.colorize;
-import static service.Service.getIntChoice;
+import static service.Service.getIntValue;
 import static smarthome.functions.PrintAppliance.printAppliance;
 
 public class ChooseAppliance {
     public static Appliance chooseAppliance(Appliance[] appliances) {
-        String message = "Choose appliance(0 - Cancel) >>> ";
+        String message = "Choose appliance(0 - Cancel)";
 
         printAppliance(appliances);
 
-        int choice = getIntChoice(appliances.length, message);
+        int choice = getIntValue(appliances.length, message);
 
         if(choice == 0){
             System.out.println(colorize("\nOperation canceled", "YELLOW"));

@@ -33,10 +33,11 @@ public class Appliance implements Serializable {
     public void setWattHour(double wattHour) { this.wattHour = wattHour; }
 
     public boolean getStatus() { return status; }
+
     public void setStatus(boolean status) {
-       if(status)
+       if(status && !getStatus())
            setLastTimeTurnedOn(System.currentTimeMillis()); // save time when appliance was turned on
-       else
+       else if(!status && getStatus())
            setWorkingHours(getWorkingHours() + (System.currentTimeMillis() - getLastTimeTurnedOn()) / 3600000.0); // add time when appliance was turned on to working hours
 
         this.status = status;
